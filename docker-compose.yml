@@ -1,9 +1,6 @@
 # This version must match the MAKE_DC_VERSION value below
 version: "3"
 
-volumes:
-  pgdata:
-
 networks:
   postgres:
     driver: bridge
@@ -14,8 +11,11 @@ services:
     image: "${POSTGIS_IMAGE:-openmaptiles/postgis}:${TOOLS_VERSION}"
     # Use "command: postgres -c jit=off" for PostgreSQL 11+ because of slow large MVT query processing
     # Use "shm_size: 512m" if you want to prevent a possible 'No space left on device' during 'make generate-tiles-pg'
+    shm_size: 512M
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - /root/map_data/planet_data/pgdata_planet:/var/lib/postgresql/data
+      - ../.docker/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+      - ../.docker/postgres/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     networks:
       - postgres
     ports:
@@ -56,6 +56,7 @@ services:
       PGPASSWORD: ${PGPASSWORD:-openmaptiles}
       PGPORT: ${PGPORT:-5432}
       MBTILES_FILE: ${MBTILES_FILE}
+    # network_mode: "host"
     networks:
       - postgres
     volumes:
@@ -64,7 +65,7 @@ services:
       - ./data:/export
       - ./build/sql:/sql
       - ./build:/mapping
-      - ./cache:/cache
+      - /root/map_data/planet_data/cache:/cache
       - ./style:/style
 
   update-osm:

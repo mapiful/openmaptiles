@@ -97,38 +97,6 @@ layer:
           __AND__:
             highway: construction
             construction: raceway
-    subclass:
-      description: |
-          Distinguish more specific classes of railway and path:
-          Subclass is value of the
-          [`railway`](http://wiki.openstreetmap.org/wiki/Key:railway),
-          [`highway`](http://wiki.openstreetmap.org/wiki/Key:highway) (for paths), or
-          [`public_transport`](http://wiki.openstreetmap.org/wiki/Key:public_transport) (for platforms) tag.
-      values:
-      - rail
-      - narrow_gauge
-      - preserved
-      - funicular
-      - subway
-      - light_rail
-      - monorail
-      - tram
-      - pedestrian
-      - path
-      - footway
-      - cycleway
-      - steps
-      - bridleway
-      - corridor
-      - platform
-      - ferry (DEPRECATED - use class)
-    network:
-      description: |
-          The network type derived mainly from [`network`](http://wiki.openstreetmap.org/wiki/Key:network) tag of the road.
-          See more info about [`us-*`](http://wiki.openstreetmap.org/wiki/Road_signs_in_the_United_States),
-          [`ca-transcanada`](https://en.wikipedia.org/wiki/Trans-Canada_Highway),
-          [`gb-*`](http://wiki.openstreetmap.org/wiki/United_Kingdom_Tagging_Guidelines#UK_roads),
-          or [`ie-*`](http://wiki.openstreetmap.org/wiki/Ireland/Roads).
     brunnel:
       description: |
           Mark whether way is a tunnel or bridge.
@@ -158,62 +126,16 @@ layer:
       - driveway
       - alley
       - parking_aisle
-    access:
-      description: |
-          Access restrictions on this road.  Supported values of the
-          [`access`](http://wiki.openstreetmap.org/wiki/Key:access) tag are `no` and `private`,
-          which resolve to `no`.
-      values:
-      - no
-    toll:
-      description: |
-          Whether this is a toll road, based on the [`toll`](http://wiki.openstreetmap.org/wiki/Key:toll) tag.
-      values: [0, 1]
-    expressway:
-      description: |
-          Whether this is an expressway, based on the [`expressway`](http://wiki.openstreetmap.org/wiki/Key:expressway) tag.
-      values: [1]
-    layer:
-      description: |
-          Original value of the [`layer`](http://wiki.openstreetmap.org/wiki/Key:layer) tag.
-    level:
-      description: |
-          Experimental feature! Filled only for steps and footways. Original
-          value of the [`level`](http://wiki.openstreetmap.org/wiki/Key:level) tag.
-    indoor:
-      description: |
-          Experimental feature! Filled only for steps and footways. Original
-          value of the [`indoor`](http://wiki.openstreetmap.org/wiki/Key:indoor) tag.
-      values:
-      - 1
-    bicycle:
-      description: |
-          Original value of the [`bicycle`](http://wiki.openstreetmap.org/wiki/Key:bicycle) tag (highways only).
-    foot:
-      description: |
-          Original value of the [`foot`](http://wiki.openstreetmap.org/wiki/Key:foot) tag (highways only).
-    horse:
-      description: |
-          Original value of the [`horse`](http://wiki.openstreetmap.org/wiki/Key:horse) tag (highways only).
-    mtb_scale:
-      description: |
-          Original value of the [`mtb:scale`](http://wiki.openstreetmap.org/wiki/Key:mtb:scale) tag (highways only).
-    surface:
-      description: |
-          Values of [`surface`](https://wiki.openstreetmap.org/wiki/Key:surface) tag devided into 2 groups `paved` (paved, asphalt, cobblestone, concrete, concrete:lanes, concrete:plates, metal, paving_stones, sett, unhewn_cobblestone, wood) and `unpaved` (unpaved, compacted, dirt, earth, fine_gravel, grass, grass_paver, gravel, gravel_turf, ground, ice, mud, pebblestone, salt, sand, snow, woodchips).
-      values:
-      - paved
-      - unpaved
   datasource:
     geometry_field: geometry
     srid: 900913
-    query: (SELECT geometry, class, subclass, network, oneway, ramp, brunnel, service, access, toll, expressway, layer, level, indoor, bicycle, foot, horse, mtb_scale, surface FROM layer_transportation(!bbox!, z(!scale_denominator!))) AS t
+    query: (SELECT geometry, class, oneway, ramp, brunnel, service FROM layer_transportation(!bbox!, z(!scale_denominator!))) AS t
 schema:
-  - ./network_type.sql
+  # - ./network_type.sql
   - ./class.sql
   - ./highway_name.sql
-  - ./update_route_member.sql
-  - ./update_transportation_merge.sql
+  # - ./update_route_member.sql
+  # - ./update_transportation_merge.sql
   - ./transportation.sql
 datasources:
   - type: imposm3

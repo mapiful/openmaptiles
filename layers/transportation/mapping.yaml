@@ -84,6 +84,12 @@ generalized_tables:
     sql_filter: ST_IsValid(geometry)
     tolerance: ZRES13
 
+# etldoc: highway_linestring_gen_z11 -> highway_linestring_gen2
+  highway_linestring_gen2:
+    source: highway_linestring_gen_z11
+    sql_filter: highway IN ('motorway', 'trunk', 'primary', 'secondary', 'motorway_link', 'trunk_link', 'primary_link', 'secondary_link') AND NOT is_area
+    tolerance: ZRES11
+
 # etldoc: osm_highway_linestring -> osm_highway_linestring_gen_z11
   highway_linestring_gen_z11:
     source: highway_linestring
@@ -130,18 +136,18 @@ service_field: &service
   key: service
   name: service
   type: string
-access_field: &access
-  key: access
-  name: access
-  type: string
-toll_field: &toll
-  key: toll
-  name: toll
-  type: bool
-usage_field: &usage
-  key: usage
-  name: usage
-  type: string
+# access_field: &access
+#   key: access
+#   name: access
+#   type: string
+# toll_field: &toll
+#   key: toll
+#   name: toll
+#   type: bool
+# usage_field: &usage
+#   key: usage
+#   name: usage
+#   type: string
 public_transport_field: &public_transport
   key: public_transport
   name: public_transport
@@ -150,22 +156,22 @@ ref_field: &ref
   key: ref
   name: ref
   type: string
-network_field: &network
-  key: network
-  name: network
-  type: string
-layer_field: &layer
-  key: layer
-  name: layer
-  type: integer
-level_field: &level
-  key: level
-  name: level
-  type: integer
-indoor_field: &indoor
-  key: indoor
-  name: indoor
-  type: bool
+# network_field: &network
+#   key: network
+#   name: network
+#   type: string
+# layer_field: &layer
+#   key: layer
+#   name: layer
+#   type: integer
+# level_field: &level
+#   key: level
+#   name: level
+#   type: integer
+# indoor_field: &indoor
+#   key: indoor
+#   name: indoor
+#   type: bool
 man_made_field: &man_made
   key: man_made
   name: man_made
@@ -173,34 +179,34 @@ man_made_field: &man_made
 z_order_field: &z_order
   name: z_order
   type: wayzorder
-bicycle_field: &bicycle
-  key: bicycle
-  name: bicycle
-  type: string
-foot_field: &foot
-  key: foot
-  name: foot
-  type: string
-horse_field: &horse
-  key: horse
-  name: horse
-  type: string
-mtb_scale_field: &mtb_scale
-  key: mtb:scale
-  name: mtb_scale
-  type: string
-sac_scale_field: &sac_scale
-  key: sac_scale
-  name: sac_scale
-  type: string
-surface_field: &surface
-  key: surface
-  name: surface
-  type: string
-expressway_field: &expressway
-  key: expressway
-  name: expressway
-  type: bool
+# bicycle_field: &bicycle
+#   key: bicycle
+#   name: bicycle
+#   type: string
+# foot_field: &foot
+#   key: foot
+#   name: foot
+#   type: string
+# horse_field: &horse
+#   key: horse
+#   name: horse
+#   type: string
+# mtb_scale_field: &mtb_scale
+#   key: mtb:scale
+#   name: mtb_scale
+#   type: string
+# sac_scale_field: &sac_scale
+#   key: sac_scale
+#   name: sac_scale
+#   type: string
+# surface_field: &surface
+#   key: surface
+#   name: surface
+#   type: string
+# expressway_field: &expressway
+#   key: expressway
+#   name: expressway
+#   type: bool
 
 tables:
 # etldoc: imposm3 -> osm_highway_linestring
@@ -218,20 +224,20 @@ tables:
     - name: construction
       key: construction
       type: string
-    - name: tracktype
-      key: tracktype
-      type: string
+    # - name: tracktype
+    #   key: tracktype
+    #   type: string
     - *ref
-    - *network
+    # - *network
     - *z_order
-    - *layer
-    - *level
-    - *indoor
+    # - *layer
+    # - *level
+    # - *indoor
     - *name
     - *name_en
     - *name_de
-    - name: tags
-      type: hstore_tags
+    # - name: tags
+      # type: hstore_tags
     - *tunnel
     - *bridge
     - *ramp
@@ -239,18 +245,18 @@ tables:
     - *oneway
     - *area
     - *service
-    - *access
-    - *toll
-    - *usage
+    # - *access
+    # - *toll
+    # - *usage
     - *public_transport
     - *man_made
-    - *bicycle
-    - *foot
-    - *horse
-    - *mtb_scale
-    - *sac_scale
-    - *surface
-    - *expressway
+    # - *bicycle
+    # - *foot
+    # - *horse
+    # - *mtb_scale
+    # - *sac_scale
+    # - *surface
+    # - *expressway
     mapping:
       highway:
       - motorway
@@ -301,23 +307,23 @@ tables:
       name: railway
       type: string
     - *ref
-    - *network
+    # - *network
     - *z_order
-    - *layer
-    - *level
-    - *indoor
+    # - *layer
+    # - *level
+    # - *indoor
     - *name
     - *name_en
     - *name_de
-    - name: tags
-      type: hstore_tags
+    # - name: tags
+    #   type: hstore_tags
     - *tunnel
     - *bridge
     - *ramp
     - *ford
     - *area
     - *service
-    - *usage
+    # - *usage
     mapping:
       railway:
       - rail
@@ -342,7 +348,7 @@ tables:
       name: aerialway
       type: string
     - *z_order
-    - *layer
+    # - *layer
     - *name
     - *name_en
     - *name_de
@@ -355,7 +361,7 @@ tables:
     - *oneway
     - *area
     - *service
-    - *usage
+    # - *usage
     mapping:
       aerialway:
       - chair_lift
@@ -380,19 +386,19 @@ tables:
       name: shipway
       type: string
     - *z_order
-    - *layer
+    # - *layer
     - *name
     - *name_en
     - *name_de
-    - name: tags
-      type: hstore_tags
+    # - name: tags
+    #   type: hstore_tags
     - *tunnel
     - *bridge
     - *ramp
     - *ford
     - *area
     - *service
-    - *usage
+    # - *usage
     mapping:
       route:
       - ferry
@@ -410,9 +416,9 @@ tables:
       type: string
     - name: z_order
       type: wayzorder
-    - *layer
-    - *level
-    - *indoor
+    # - *layer
+    # - *level
+    # - *indoor
     - name: is_area
       key: area
       type: bool
@@ -447,13 +453,13 @@ tables:
       type: string
     - name: z_order
       type: wayzorder
-    - *layer
-    - *level
+    # - *layer
+    # - *level
     - *name
     - *name_en
     - *name_de
-    - name: tags
-      type: hstore_tags
+    # - name: tags
+    #   type: hstore_tags
     - name: ref
       key: ref
       type: string
@@ -463,30 +469,30 @@ tables:
 
 # TODO: Future table for joining networks
 # etldoc: imposm3 -> osm_route_member
-  route_member:
-    type: relation_member
-    columns:
-    - name: osm_id
-      type: id
-    - name: member
-      type: member_id
-    - name: role
-      type: member_role
-    - name: type
-      type: member_type
-    - *ref
-    - *network
-    - *name
-    - name: osmc_symbol
-      key: osmc:symbol
-      type: string
-    - name: colour
-      key: colour
-      type: string
-    - name: ref_colour
-      key: ref:colour
-      type: string
-    mapping:
-      route:
-      - road
-      - hiking
+  # route_member:
+  #   type: relation_member
+  #   columns:
+  #   - name: osm_id
+  #     type: id
+  #   - name: member
+  #     type: member_id
+  #   - name: role
+  #     type: member_role
+  #   - name: type
+  #     type: member_type
+  #   - *ref
+  #   - *network
+  #   - *name
+  #   - name: osmc_symbol
+  #     key: osmc:symbol
+  #     type: string
+  #   - name: colour
+  #     key: colour
+  #     type: string
+  #   - name: ref_colour
+  #     key: ref:colour
+  #     type: string
+  #   mapping:
+  #     route:
+  #     - road
+  #     - hiking
