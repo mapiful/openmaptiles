@@ -589,18 +589,18 @@ FROM (
          -- etldoc: water_z5 ->  layer_water:z5
          SELECT *
          FROM water_z5
-         WHERE zoom_level = 5
+         WHERE zoom_level IN (5, 6, 7) -- = 5
          UNION ALL
          -- etldoc: water_z6 ->  layer_water:z6
-         SELECT *
-         FROM water_z6
-         WHERE zoom_level = 6
-         UNION ALL
+         -- SELECT *
+         -- FROM water_z6
+         -- WHERE zoom_level = 6
+         -- UNION ALL
          -- etldoc: water_z7 ->  layer_water:z7
-         SELECT *
-         FROM water_z7
-         WHERE zoom_level = 7
-         UNION ALL
+         -- SELECT *
+         -- FROM water_z7
+         -- WHERE zoom_level = 7
+         -- UNION ALL
          -- etldoc: water_z8 ->  layer_water:z8
          SELECT *
          FROM water_z8
