@@ -11,11 +11,11 @@ services:
     image: "${POSTGIS_IMAGE:-openmaptiles/postgis}:${TOOLS_VERSION}"
     # Use "command: postgres -c jit=off" for PostgreSQL 11+ because of slow large MVT query processing
     # Use "shm_size: 512m" if you want to prevent a possible 'No space left on device' during 'make generate-tiles-pg'
-    shm_size: 512M
+    shm_size: 512m
     volumes:
-      - /root/map_data/planet_data/pgdata_planet:/var/lib/postgresql/data
-      - ../.docker/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
-      - ../.docker/postgres/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+      - /root/map_data/planet_data/pgdata_planet2:/var/lib/postgresql/data
+      - ../mapiful-mapproxy/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+      - ../mapiful-mapproxy/postgres/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     networks:
       - postgres
     ports:
